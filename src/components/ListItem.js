@@ -7,5 +7,5 @@ export default styled.ul`
     padding: 0;
     margin: 0;
     justify-content: center;
-    align-items: center
+    align-items: stretch
 `

@@ -17,7 +17,7 @@ const DotBar = ({currentIndex, range, onClick}) => (
             new Array(range).fill(0).map((_, index) => {
                 const isActive = index === currentIndex
                 return (
-                    <li>
+                    <li key={index}>
                         <Dot
                         active={isActive}
                         aria-disabled={isActive}

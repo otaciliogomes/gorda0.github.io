@@ -1,7 +1,7 @@
-const LiveText = ({id, text, hidden}) => (
+const LiveText = ({id, text, hidden, assertive}) => (
     <div
         id={id}
-        aria-live="polite"
+        aria-live={assertive ? "assertive": "polite"}
         aria-atomic="true"
         className={hidden ? 'visually-hidden' : ''}>
             {text}
