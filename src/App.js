@@ -17,13 +17,14 @@ const StyledGeneric = styled.button`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%
 `
 
 /** MOCK */
 // TODO: Improve mock generator
 const GenericItem = ({title, action, idx, img}) => (
   <StyledGeneric onClick={action}>
-    <img src={`https://picsum.photos/id/${img}/200/200`}  alt={title}/>
+    <img src={`https://picsum.photos/id/${img}/120/120`}  alt={title}/>
     <h3>{title}</h3>
     <p>{lorems[idx]}</p>
     <span>Confira!</span>
@@ -42,10 +43,10 @@ const mock = [
   'MANAUS',
   'ACRE',
   'WASHINGTON',
-  'NEBRASKA'
+  'NEBRASKA', 'PRAIA GRANDE'
 ]
 
-const lorems = mock.map(_ => lorem.generateParagraphs(1))
+const lorems = mock.map(_ => lorem.generateWords(10))
 
 const createGenerics = images => mock.map((text, idx) => <GenericItem title={text} idx={idx} img={images.length && images[idx].id}/>)
 
@@ -53,7 +54,7 @@ function App() {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://picsum.photos/v2/list?page=${Math.floor(Math.random() * mock.length) + 1}&limit=${mock.length}`)
+    axios.get(`https://picsum.photos/v2/list?page=${Math.floor(Math.random() * mock.length * 10) + 1}&limit=${mock.length}`)
       .then(res => {
         setImages(res.data)
       })
@@ -63,7 +64,13 @@ function App() {
 
   return (
     <div className="App">
-      <Caroselus items={createGenerics(images)} perPage={3} infinite images={images}/>
+      <button>Botão teste 01</button><br/>
+      <button>Botão teste 02</button><br/>
+      <span>{lorem.generateParagraphs(1)}</span> <br/>
+      <Caroselus items={createGenerics(images)} perPage={4} infinite images={images}/><br/>
+      <span>{lorem.generateParagraphs(1)}</span> <br/>
+      <button>Botão teste 03</button><br/>
+      <button>Botão teste 04</button><br/>
     </div>
   );
 }
