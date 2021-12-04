@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/caroselus/static/css/main.a690aaa2.chunk.css",
+    "main.js": "/caroselus/static/js/main.827f7443.chunk.js",
+    "main.js.map": "/caroselus/static/js/main.827f7443.chunk.js.map",
+    "runtime-main.js": "/caroselus/static/js/runtime-main.0c8d5dce.js",
+    "runtime-main.js.map": "/caroselus/static/js/runtime-main.0c8d5dce.js.map",
+    "static/js/2.737b9859.chunk.js": "/caroselus/static/js/2.737b9859.chunk.js",
+    "static/js/2.737b9859.chunk.js.map": "/caroselus/static/js/2.737b9859.chunk.js.map",
+    "index.html": "/caroselus/index.html",
+    "static/css/main.a690aaa2.chunk.css.map": "/caroselus/static/css/main.a690aaa2.chunk.css.map",
+    "static/js/2.737b9859.chunk.js.LICENSE.txt": "/caroselus/static/js/2.737b9859.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0c8d5dce.js",
+    "static/js/2.737b9859.chunk.js",
+    "static/css/main.a690aaa2.chunk.css",
+    "static/js/main.827f7443.chunk.js"
+  ]
+}
