@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import './App.css';
 import Caroselus from './components/Caroselus';
 import { LoremIpsum } from "lorem-ipsum";
+import { mountPicsumUrl } from './utils';
 const axios = require('axios');
 
 const lorem = new LoremIpsum({
@@ -24,8 +25,8 @@ const StyledGeneric = styled.button`
 // TODO: Improve mock generator
 const GenericItem = ({title, action, idx, img}) => (
   <StyledGeneric onClick={action}>
-    <img src={`https://picsum.photos/id/${img}/120/120`}  alt={title}/>
-    <h3>{title}</h3>
+    <img src={`https://picsum.photos/id/${img}/120/120`}  alt="" />
+    <strong>{title}</strong>
     <p>{lorems[idx]}</p>
     <span>Confira!</span>
   </StyledGeneric>
@@ -54,16 +55,15 @@ function App() {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://picsum.photos/v2/list?page=${Math.floor(Math.random() * mock.length * 10) + 1}&limit=${mock.length}`)
+    axios.get(mountPicsumUrl(mock.length))
       .then(res => {
         setImages(res.data)
       })
   }, [])
 
-  console.log(images)
-
   return (
     <div className="App">
+      <h1>POC Carrossel</h1>
       <button>Botão teste 01</button><br/>
       <button>Botão teste 02</button><br/>
       <span>{lorem.generateParagraphs(1)}</span> <br/>
