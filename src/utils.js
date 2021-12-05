@@ -14,3 +14,7 @@ export const keysMiddleware = async (e, fn) => {
     await e.stopPropagation()
     return fn()
 }
+
+export const randomValue = from => Math.floor(Math.random() * from * 10) + 1
+
+export const mountPicsumUrl = len => `https://picsum.photos/v2/list?page=${randomValue(len)}&limit=${len}`
