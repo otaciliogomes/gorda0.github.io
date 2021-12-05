@@ -69,7 +69,11 @@ function App() {
       <button>Botão teste 01</button><br/>
       <button>Botão teste 02</button><br/>
       <span>{lorem.generateParagraphs(1)}</span> <br/>
-      <Caroselus items={createGenerics(images)} perPage={4} infinite images={images}/><br/>
+      <Caroselus
+        items={createGenerics(images)}
+        perPage={4}
+        infinite/>
+      <br/>
       <span>{lorem.generateParagraphs(1)}</span> <br/>
       <button>Botão teste 03</button><br/>
       <button>Botão teste 04</button><br/>

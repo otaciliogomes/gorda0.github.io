@@ -5,6 +5,8 @@ import Block from './Block'
 import VisuallyHidden from '../VisuallyHidden'
 import LiveText from '../LiveText'
 import {paginate, keysMiddleware} from './_utils'
+import translations from './i18n'
+
 /**
     TO-DO:
     TODO: implement animation
@@ -27,7 +29,7 @@ const StyledCaroselus = styled.div`
         flex-direction: row-reverse;
     }
 `
-const Caroselus = ({items, perPage, infinite}) => {
+const Caroselus = ({items, perPage, infinite, customLabels}) => {
     const [currentBlock, setCurrentBlock] = useState(0)
     const [currentItem, setCurrentItem] = useState(null)
     const [animation, setAnimation] = useState(true) // TODO: implement animation
@@ -124,38 +126,73 @@ const Caroselus = ({items, perPage, infinite}) => {
         ? keysMiddleware(e, keys[e.keyCode])
         : null
 
+    const {
+        previousControlLabel,
+        nextControlLabel,
+        helpControlLabel,
+        infiniteModeControlLabel,
+        animationControlLabel,
+        atomicPageLabel,
+        atomicItemLabel,
+        atomicInfiniteModeLabel,
+        atomicAnimationModeLabel,
+    } = (customLabels
+        && Object.assign(translations.pt_BR, customLabels))
+            || translations.pt_BR
+
     return (
-        <StyledCaroselus tabIndex={0} onKeyDown={handleKeyDown} id="caroselus" aria-labelledby="caroselus-label">
-            <VisuallyHidden>
-                <span id="caroselus-label">Carrossel vitrine de promoções</span>
-                <LiveText text={`Página ${currentBlock + 1} de ${blockLength}`}/>
-                <LiveText text={`Item ${currentItem + 1} de ${blocks[currentBlock].length}`}/>
-                <LiveText assertive text={`Apresentação infinita ${infiniteMode ? 'ativada' : 'desativada'}`} />
-                <LiveText assertive text={`Animações ${animation ? 'ativada' : 'desativada'}`} />
-            </VisuallyHidden>
-            <div id="caroselus-presentation-bar" className="inverser">
-                <div>
-                    <button onClick={toggleInfinite}>
-                        {`${infiniteMode ? "Desabilitar" : "Habilitar"} apresentação infinita` /* TODO: i18n*/}
+        <StyledCaroselus
+            tabIndex={0}
+            onKeyDown={handleKeyDown}
+            id="caroselus"
+            aria-label="Carrossel vitrine de promoções">
+                <VisuallyHidden>
+                    <LiveText text={atomicPageLabel(currentBlock + 1, blockLength)}/>
+                    <LiveText text={atomicItemLabel(currentItem + 1, blocks[currentBlock].length)}/>
+                    <LiveText assertive text={atomicInfiniteModeLabel(infiniteMode)} />
+                    <LiveText assertive text={atomicAnimationModeLabel(animation)} />
+                </VisuallyHidden>
+                <div id="caroselus-presentation-bar" className="inverser">
+                    <div>
+                        <button
+                            onClick={toggleInfinite}
+                            aria-label={infiniteModeControlLabel(infiniteMode)}>
+                                {infiniteModeControlLabel(infiniteMode)}
+                        </button>
+                        <button
+                            onClick={toggleAnimation}
+                            aria-label={animationControlLabel(animation)}>
+                                {animationControlLabel(animation)}
+                        </button>
+                    </div>
+                </div>
+                <div id="caroselus-content">
+                    <Block items={blocks[currentBlock]} currentBlock={currentBlock}/>
+                </div>
+                <div id="caroselus-controls">
+                    <button
+                        onClick={decreaseBlock}
+                        disabled={isDecreaseInactive}
+                        aria-label={previousControlLabel}>
+                            {previousControlLabel}
                     </button>
-                    <button onClick={toggleAnimation}>
-                        {`${animation ? "Desabilitar" : "Habilitar"} animações` /* TODO: i18n*/}
+                    <button
+                        onClick={increaseBlock}
+                        disabled={isIncreaseInactive}
+                        aria-label={nextControlLabel}>
+                            {nextControlLabel}
                     </button>
                 </div>
-            </div>
-            <div id="caroselus-content">
-                <Block items={blocks[currentBlock]} currentBlock={currentBlock}/>
-            </div>
-            <div id="caroselus-controls">
-                <button onClick={decreaseBlock} disabled={isDecreaseInactive}>Anterior</button>
-                <button onClick={increaseBlock} disabled={isIncreaseInactive}>Próximo</button>
-            </div>
-            <div id="caroselus-bar">
-                <DotBar range={blockLength} onClick={setAndMove} currentIndex={currentBlock}/>
-            </div>
-            <div id="caroselus-help" className="inverser">
-                <button onClick={handleHelp}>Ajuda</button>
-            </div>
+                <div id="caroselus-bar">
+                    <DotBar range={blockLength} onClick={setAndMove} currentIndex={currentBlock}/>
+                </div>
+                <div id="caroselus-help" className="inverser">
+                    <button
+                        onClick={handleHelp}
+                        aria-label={helpControlLabel}>
+                            {helpControlLabel}
+                    </button>
+                </div>
         </StyledCaroselus>
     )
     }
