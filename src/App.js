@@ -3,8 +3,11 @@ import styled from 'styled-components';
 import './App.css';
 import Caroselus from './components/Caroselus';
 import { LoremIpsum } from "lorem-ipsum";
-import { mountPicsumUrl } from './utils';
 const axios = require('axios');
+
+const randomValue = from => Math.floor(Math.random() * from * 10) + 1
+const getPicsumList = len => `https://picsum.photos/v2/list?page=${randomValue(len)}&limit=${len}`
+const getPicsum = id => `https://picsum.photos/id/${id}/120/120`
 
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
@@ -22,10 +25,9 @@ const StyledGeneric = styled.button`
 `
 
 /** MOCK */
-// TODO: Improve mock generator
-const GenericItem = ({title, action, idx, img}) => (
+const GenericItem = ({title, action, idx, imgId}) => (
   <StyledGeneric onClick={action}>
-    <img src={`https://picsum.photos/id/${img}/120/120`}  alt="" />
+    <img src={getPicsum(imgId)}  alt="" />
     <strong>{title}</strong>
     <p>{lorems[idx]}</p>
     <span>Confira!</span>
@@ -49,13 +51,13 @@ const mock = [
 
 const lorems = mock.map(_ => lorem.generateWords(10))
 
-const createGenerics = images => mock.map((text, idx) => <GenericItem title={text} idx={idx} img={images.length && images[idx].id}/>)
+const createGenerics = images => mock.map((text, idx) => <GenericItem title={text} idx={idx} imgId={images.length && images[idx].id}/>)
 
 function App() {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    axios.get(mountPicsumUrl(mock.length))
+    axios.get(getPicsumList(mock.length))
       .then(res => {
         setImages(res.data)
       })

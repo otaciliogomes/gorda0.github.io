@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import VisuallyHidden from "./VisuallyHidden"
+import VisuallyHidden from "../VisuallyHidden"
 import ListItem from "./ListItem"
 
 const Dot = styled.button`

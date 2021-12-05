@@ -2,9 +2,9 @@ import {useState} from 'react'
 import styled from 'styled-components'
 import DotBar from './DotBar'
 import Block from './Block'
-import VisuallyHidden from './VisuallyHidden'
-import LiveText from './LiveText'
-import {paginate, keysMiddleware} from '../utils'
+import VisuallyHidden from '../VisuallyHidden'
+import LiveText from '../LiveText'
+import {paginate, keysMiddleware} from './_utils'
 /**
     TO-DO:
     TODO: implement animation
