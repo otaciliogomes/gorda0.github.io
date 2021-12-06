@@ -1,5 +1,4 @@
 import { useState } from "react"
-import PropTypes from "prop-types"
 import styled from "styled-components"
 import DotBar from "./DotBar"
 import Block from "./Block"
@@ -7,12 +6,12 @@ import VisuallyHidden from "../VisuallyHidden"
 import LiveText from "../LiveText"
 import { paginate, keysMiddleware } from "./_utils"
 import translations from "./i18n"
+import { GiMovementSensor, GiInfinity } from 'react-icons/gi';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Hint from "./Hint"
 
-/**
-    TO-DO:
-    TODO: implement animation
-    TODO: add styles
-*/
+// TODO: add styles
 
 const StyledCaroselus = styled.div`
   display: flex;
@@ -29,6 +28,19 @@ const StyledCaroselus = styled.div`
     display: flex;
     flex-direction: row-reverse;
   }
+
+  & button.inactive {
+	color: grey;
+  }
+
+  & button.active {
+	color: black;
+  }
+
+  & li {
+	  margin-bottom: 10px;
+  }
+
 `
 
 const Caroselus = ({
@@ -38,6 +50,7 @@ const Caroselus = ({
 	const [currentItem, setCurrentItem] = useState(null)
 	const [animation, setAnimation] = useState(true) // TODO: implement animation
 	const [infiniteMode, setInfiniteMode] = useState(infinite || false)
+	const [hint, setHint] = useState(false)
 
 	/** BLOCK SETTINGS */
 	const blocks = paginate(items, perPage)
@@ -108,7 +121,7 @@ const Caroselus = ({
 
 	const toggleAnimation = () => setAnimation(!animation)
 	const toggleInfinite = () => setInfiniteMode(!infiniteMode)
-	const handleHelp = () => alert("help modal") // TODO: implement help modal
+	const toggleHint = () => setHint(!hint)
 
 	const keys = {
 		37: decreaseBlock,
@@ -117,7 +130,7 @@ const Caroselus = ({
 		40: decreaseItem,
 		65: toggleAnimation,
 		73: toggleInfinite,
-		191: handleHelp,
+		191: toggleHint,
 	}
 
 	const handleKeyDown = (e) => (e.keyCode in keys ? keysMiddleware(e, keys[e.keyCode]) : null)
@@ -125,13 +138,20 @@ const Caroselus = ({
 	const {
 		previousControlLabel,
 		nextControlLabel,
-		helpControlLabel,
+		hintControlLabel,
 		infiniteModeControlLabel,
 		animationControlLabel,
 		atomicPageLabel,
 		atomicItemLabel,
 		atomicInfiniteModeLabel,
 		atomicAnimationModeLabel,
+		enterHintLabel,
+		sideArrowsHintLabel,
+		updownArrowsHintLabel,
+		infiniteHintLabel,
+		animationHintLabel,
+		hintLabel,
+		hintTitle,
 	} = (customLabels && Object.assign(translations.pt_BR, customLabels))
     || translations.pt_BR
 
@@ -141,6 +161,7 @@ const Caroselus = ({
 			onKeyDown={handleKeyDown}
 			id="caroselus"
 			aria-label="Carrossel vitrine de promoções"
+			aria-roledescription="carrousel"
 		>
 			<VisuallyHidden>
 				<LiveText text={atomicPageLabel(currentBlock + 1, blockLength)} />
@@ -152,38 +173,40 @@ const Caroselus = ({
 			</VisuallyHidden>
 			<div id="caroselus-presentation-bar" className="inverser">
 				<div>
-					<button
+					<IconButton
 						onClick={toggleInfinite}
 						aria-label={infiniteModeControlLabel(infiniteMode)}
+						className={infiniteMode ? 'active' : 'inactive'}
 					>
-						{infiniteModeControlLabel(infiniteMode)}
-					</button>
-					<button
+						<GiInfinity />
+					</IconButton>
+					<IconButton
 						onClick={toggleAnimation}
 						aria-label={animationControlLabel(animation)}
+						className={animation ? 'active' : 'inactive'}
 					>
-						{animationControlLabel(animation)}
-					</button>
+						<GiMovementSensor />
+					</IconButton>
 				</div>
 			</div>
 			<div id="caroselus-content">
 				<Block items={blocks[currentBlock]} currentBlock={currentBlock} />
 			</div>
 			<div id="caroselus-controls">
-				<button
+				<Button
 					onClick={decreaseBlock}
 					disabled={isDecreaseInactive}
 					aria-label={previousControlLabel}
 				>
-					{previousControlLabel}
-				</button>
-				<button
+					{"<"}
+				</Button>
+				<Button
 					onClick={increaseBlock}
 					disabled={isIncreaseInactive}
 					aria-label={nextControlLabel}
 				>
-					{nextControlLabel}
-				</button>
+					{">"}
+				</Button>
 			</div>
 			<div id="caroselus-bar">
 				<DotBar
@@ -192,20 +215,23 @@ const Caroselus = ({
 					currentIndex={currentBlock}
 				/>
 			</div>
-			<div id="caroselus-help" className="inverser">
-				<button onClick={handleHelp} aria-label={helpControlLabel}>
-					{helpControlLabel}
-				</button>
+			<div id="caroselus-hint" className="inverser">
+				<Button onClick={toggleHint} aria-label={hintControlLabel}>
+					{"?"}
+				</Button>
 			</div>
+			<Hint
+				hint={hint}
+				toggleHint={toggleHint}
+				enterHintLabel={enterHintLabel}
+				sideArrowsHintLabel={sideArrowsHintLabel}
+				updownArrowsHintLabel={updownArrowsHintLabel}
+				infiniteHintLabel={infiniteHintLabel}
+				animationHintLabel={animationHintLabel}
+				hintLabel={hintLabel}
+				hintTitle={hintTitle}/>
 		</StyledCaroselus>
 	)
-}
-
-Caroselus.propTypes = {
-	items: PropTypes.arrayOf(PropTypes.any).isRequired,
-	perPage: PropTypes.number.isRequired,
-	infinite: PropTypes.bool,
-	customLabels: PropTypes.object
 }
 
 export default Caroselus

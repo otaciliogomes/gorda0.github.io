@@ -1,5 +1,3 @@
-import PropTypes from "prop-types"
-
 const LiveText = ({id, text, assertive}) => (
 	<div
 		id={id}
@@ -8,11 +6,5 @@ const LiveText = ({id, text, assertive}) => (
 		{text}
 	</div>
 )
-
-LiveText.propTypes = {
-	id: PropTypes.string.isRequired,
-	text: PropTypes.string.isRequired,
-	assertive: PropTypes.bool
-}
 
 export default LiveText

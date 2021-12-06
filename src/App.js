@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react"
-import PropTypes from "prop-types"
 import styled from "styled-components"
 import "./App.css"
 import Caroselus from "./components/Caroselus"
@@ -34,13 +33,6 @@ const GenericItem = ({title, action, idx, imgId}) => (
 		<span>Confira!</span>
 	</StyledGeneric>
 )
-
-GenericItem.propTypes = {
-	title: PropTypes.string,
-	action: PropTypes.func,
-	idx: PropTypes.number,
-	imgId: PropTypes.number,
-}
 
 const mock = [
 	"IBIZA",

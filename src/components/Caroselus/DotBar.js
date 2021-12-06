@@ -1,4 +1,3 @@
-import PropTypes from "prop-types"
 import styled from "styled-components"
 import VisuallyHidden from "../VisuallyHidden"
 import ListItem from "./ListItem"
@@ -40,11 +39,5 @@ const DotBar = ({currentIndex, range, onClick}) => (
 		}
 	</ListItem>
 )
-
-DotBar.propTypes = {
-	currentIndex: PropTypes.number.isRequired,
-	range: PropTypes.number.isRequired,
-	onClick: PropTypes.func.isRequired
-}
 
 export default DotBar
