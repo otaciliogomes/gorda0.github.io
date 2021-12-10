@@ -12,7 +12,7 @@ const Hint = ({
     updownArrowsHintLabel,
     infiniteHintLabel,
     animationHintLabel,
-    hintLabel,
+    hintLabel, 
     hintTitle,
 }) => (
     <Dialog onClose={toggleHint} open={hint}>

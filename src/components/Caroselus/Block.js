@@ -1,8 +1,8 @@
 
 import ListItem from "./ListItem"
 
-const Block = ({items, currentBlock}) => (
-	<ListItem role="listbox">
+const Block = ({items, currentBlock, animation}) => (
+	<ListItem role="listbox" style={{ transform: `translatex(${animation}px)` }}>
 		{
 			items.map((item, index) => (
 				<li

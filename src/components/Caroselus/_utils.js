@@ -1,7 +1,7 @@
 export const paginate = (items, perPage) =>
 	items.reduce(
 		(acc, _, index) => {
-			if (index % perPage === 0)
+			if (index % 1 === 0)
 				acc.push(items.slice(index, index + perPage))
 
 			return acc

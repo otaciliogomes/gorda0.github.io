@@ -7,5 +7,6 @@ export default styled.ul`
     padding: 0;
     margin: 0;
     justify-content: center;
-    align-items: stretch
+    align-items: stretch;
+    transition: 0.5s;
 `

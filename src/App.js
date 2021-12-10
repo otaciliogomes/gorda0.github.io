@@ -21,7 +21,8 @@ const StyledGeneric = styled.button`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%
+  height: 100%;
+  margin: 10px;
 `
 
 /** MOCK */
@@ -79,7 +80,7 @@ function App() {
 			<span>{lorem.generateParagraphs(1)}</span> <br/>
 			<Caroselus
 				items={createGenerics(images)}
-				perPage={4}
+				perPage={3}
 				infinite/>
 			<br/>
 			<span>{lorem.generateParagraphs(1)}</span> <br/>
